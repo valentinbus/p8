@@ -31,7 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'home',
+    'opfoodfact',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -122,4 +122,6 @@ STATIC_URL = '/static/'
 
 STATICFILES_DIRS = [
     "pur_beurre/pur_beurre/home/static",
+    "pur_beurre/pur_beurre/static",
+    "pur_beurre/static",
 ]

@@ -3,5 +3,5 @@ from . import views
 
 
 urlpatterns = [
-    url('', views.home)
+    url('', views.opfoodfact)
 ]
