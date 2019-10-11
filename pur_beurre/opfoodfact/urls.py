@@ -3,5 +3,6 @@ from . import views
 
 
 urlpatterns = [
-    url('', views.opfoodfact)
+    url('search/', views.search),
+    url('replace/', views.replace),
 ]
