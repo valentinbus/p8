@@ -41,10 +41,13 @@ class OpenFoodFacts:
             result.append(d)
         return result
 
-    def purpose_replace(self, category, nutriscore):
+    def purpose_replace(self, product):
         """
         Give best nutriscore purpose by category for user
         """
+        category = product['category']
+        nutriscore = product['nutriscore']
+        
         END_URL = urllib.parse.quote(category)
         URL = CATEGORY_URL+END_URL
 
