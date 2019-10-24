@@ -1,15 +1,12 @@
 import requests
 import urllib.parse 
 from .categories import CATEGORIES
+from .models import Products, Saves
 
 from pprint import pprint
 
 
-SEARCH_URL = 'https://fr.openfoodfacts.org/cgi/search.pl' #il faut utiliser celle ci
-# CATEGORIES = 'https://fr.openfoodfacts.org/categories?json=1'
-# CATEGORY_URL = 'https://fr.openfoodfacts.org/categorie/'
-# PRODUCT_URL = 'https://world.openfoodfacts.org/api/v0/product/'
-# OPENFOODFACT_URL = 'https://fr.openfoodfacts.org/produit/'
+SEARCH_URL = 'https://fr.openfoodfacts.org/cgi/search.pl'
 
 class OpenFoodFacts:
     def __init__(self):
@@ -57,5 +54,8 @@ class OpenFoodFacts:
         return self.product_informations(CATEGORIES)
 
 
+
 op = OpenFoodFacts()
-pprint(op.init_db())
+
+if __name__ == "__main__":
+    pprint(op.init_db())
