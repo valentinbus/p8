@@ -1,7 +1,7 @@
 import requests
 import urllib.parse 
 from .categories import CATEGORIES
-#from .models import Products, Saves
+from .models import Product, Save
 
 from pprint import pprint
 
@@ -51,4 +51,6 @@ class OpenFoodFacts:
         """
         Runs all methods to init db
         """
-        return self.product_informations(CATEGORIES)
+        for product in self.product_informations(CATEGORIES):
+            p = Product.objects.create(**product)
+            p.save()
