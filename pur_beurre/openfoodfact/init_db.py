@@ -1,7 +1,7 @@
 import requests
 import urllib.parse 
 from .categories import CATEGORIES
-from .models import Products, Saves
+#from .models import Products, Saves
 
 from pprint import pprint
 
@@ -54,8 +54,5 @@ class OpenFoodFacts:
         return self.product_informations(CATEGORIES)
 
 
-
 op = OpenFoodFacts()
-
-if __name__ == "__main__":
-    pprint(op.init_db())
+pprint(op.init_db())

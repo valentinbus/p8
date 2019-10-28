@@ -20,5 +20,6 @@ from . import views
 
 urlpatterns = [
     path('', views.home),
+    path('openfoodfact/', include('openfoodfact.urls')),
     path('admin/', admin.site.urls),
 ]

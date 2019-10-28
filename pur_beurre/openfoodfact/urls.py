@@ -3,6 +3,7 @@ from . import views
 
 
 urlpatterns = [
-    url('search/', views.search),
-    url('replace/', views.replace),
+    #url('search/', views.search),
+    #url('replace/', views.replace),
+    url('', views.openfoodfact_home)
 ]

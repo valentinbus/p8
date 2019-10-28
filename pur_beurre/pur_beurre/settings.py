@@ -11,8 +11,6 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 """
 
 import os
-import django
-
 
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -129,5 +127,3 @@ STATICFILES_DIRS = [
     "pur_beurre/pur_beurre/static",
     "pur_beurre/static",
 ]
-
-django.setup()
