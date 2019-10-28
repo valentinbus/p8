@@ -52,7 +52,3 @@ class OpenFoodFacts:
         Runs all methods to init db
         """
         return self.product_informations(CATEGORIES)
-
-
-op = OpenFoodFacts()
-pprint(op.init_db())
