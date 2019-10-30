@@ -2,6 +2,7 @@ import requests
 import urllib.parse 
 from .categories import CATEGORIES
 from .models import Product, Save
+from django.contrib.auth.models import User
 
 from pprint import pprint
 
@@ -54,3 +55,17 @@ class OpenFoodFacts:
         for product in self.product_informations(CATEGORIES):
             p = Product.objects.create(**product)
             p.save()
+
+    def create_user(self):
+        """
+        Create user for simple test
+        """
+        prenom = input('prenom: \n')
+        mail = input('mail: \n')
+        password = input('passwd: \n')
+        user = User.objects.create_user(
+            prenom, 
+            mail, 
+            password
+        )
+        

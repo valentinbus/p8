@@ -1,5 +1,5 @@
 from django.db import models
-
+from django.contrib.auth.models import User
 from django.db import models
 from django.utils import timezone
 
@@ -15,3 +15,7 @@ class Product(models.Model):
 class Save(models.Model):
     product_to_replace = models.ForeignKey(Product, on_delete=models.CASCADE, related_name="product_to_replace")
     replace_product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name="replace_product") 
+
+class Profil(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    save = models.ForeignKey(Save, on_delete=models.CASCADE)
