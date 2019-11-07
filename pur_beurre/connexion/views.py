@@ -1,10 +1,12 @@
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import render
-from .forms import ConnexionForm
-from django.urls import reverse
-from django.contrib.auth import logout
+from .forms import ConnexionForm, RegistrationForm
 from django.http import HttpResponseRedirect, HttpResponse
 from django.contrib.auth.decorators import login_required
+from .models import Profil
+from django.contrib.auth.models import User
+
+from pprint import pprint
 
 
 def connexion(request):
@@ -26,20 +28,55 @@ def connexion(request):
     else:
         form = ConnexionForm()
 
-    print(locals())
-    return render(request, 'connexion/connexion.html', locals())
+    pprint(f'LOCALS===>{locals()}')
+    return render(request, 'auth/connexion.html', locals())
 
-@login_required(login_url="/connexion")
+#@login_required(login_url="/connexion")
 def deconnexion(request):
     """
     Logout user
     """
     logout(request)
-    reverse("connexion")
-    return HttpResponseRedirect('/connexion')
+    return render(request, "auth/deconnexion.html")
 
-@login_required(login_url="/connexion")
-def dire_bonjour(request):
-    if request.user.is_authenticated:
-        return HttpResponse("Salut, {0} !".format(request.user.username))
-    return HttpResponse("Salut")
+def registration(request):
+    """
+    Registration part for new user
+    """
+    if request.method == "POST":
+        form = RegistrationForm(request.POST)
+        pprint(f"form =={form}")
+        pprint(f"form =={form.cleaned_data}")
+        if form.is_valid():
+            username = form.cleaned_data['username']
+            email = form.cleaned_data['email']
+            password = form.cleaned_data['password']
+            confirm_password = form.cleaned_data['confirm_password']
+
+            """
+            ToDo 
+            if user not in DB create user with these fields
+            - check user in db 
+            - Redirect to connexion page when it's done
+            """
+            if User.objects.filter(username=username):
+                print('username already exists')
+            else:
+                if password==confirm_password:
+                    User.objects.create_user(
+                        username=username,
+                        email=email,
+                        password=password
+                    )
+        else:
+            form = RegistrationForm()
+            print("false")
+
+    return render(request, 'auth/registration.html', locals())
+
+def test(request):
+    user = User.objects
+    if user.filter(username="valentin"):
+        print('ok')
+    print(user)
+    return HttpResponse(user)
