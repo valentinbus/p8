@@ -1,38 +1,19 @@
 from django.http import HttpResponseRedirect, HttpResponse, JsonResponse
-# from django.shortcuts import render
-# from .init_db import i
-# from .forms import NameForm
+from django.core.paginator import Paginator
+from django.core import serializers
+from .models import Product
+from django.shortcuts import render
 
-def openfoodfact_home(request):
-    return HttpResponse("ok")
-# op = OpenFoodFacts()
-
-# def search(request):
-#     """
-#     search process
-#     """
-#     if request.method == 'POST':
-#         form = NameForm(request.POST)
+from pprint import pprint
 
 
-#         if form.is_valid():
+def list_all_products(request):
+    products_list = Product.objects.all()
+    seriale_objects = serializers.serialize('json', products_list)
+    pprint(seriale_objects)
+    paginator = Paginator(products_list, 25)
 
-#             query = form.data['query']
-#             result = op.search(query)
-#             return JsonResponse(result, safe=False)
+    page = request.GET.get('page')
+    products = paginator.get_page(page)
 
-#     else:
-#         form = NameForm()
-
-#     return render(request, "openfoodfacts_search.html", {'form': form})
-    
-# def replace(request):
-#     """
-#     replace process
-#     """
-#     category = request.GET['category']
-#     nutriscore = request.GET['nutriscore']
-
-#     data = op.purpose_replace(category, nutriscore)
-
-#     return JsonResponse(data, safe=False)
+    return render(request, 'op/list_products.html', {'products': products})
