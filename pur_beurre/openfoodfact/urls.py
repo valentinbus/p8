@@ -3,7 +3,6 @@ from . import views
 
 
 urlpatterns = [
-    #url('search/', views.search),
-    #url('replace/', views.replace),
-    url('', views.list_all_products)
+    url('list/', views.list_all_products),
+    url('replace/', views.purpose_replace)
 ]
