@@ -1,0 +1,34 @@
+<link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<!------ Include the above in your HEAD tag ---------->
+
+{% if error %}
+<p><strong>Utilisateur inconnu ou mauvais de mot de passe.</strong></p>
+{% endif %}
+
+{% if user.is_authenticated %}
+Vous êtes connecté, {{ user.username }} !
+{% else %}
+
+<form class="form-horizontal" action='' method="POST" style="margin: 20">
+  {% csrf_token %}
+
+  <fieldset>
+    <div id="legend">
+      <legend class="">Connexion</legend>
+    </div>
+    <div class="control-group">
+      <!-- Username -->
+      {{ form.as_p }}
+    </div>
+ 
+    <div class="control-group">
+      <!-- Button -->
+      <div class="controls">
+        <button class="btn btn-success">Connexion</button>
+      </div>
+    </div>
+  </fieldset>
+</form>
+{% endif %}
