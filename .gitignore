@@ -1,8 +1,5 @@
 venv/
 
-__pycache__/
-openfoodfact/__pycache__/
-openfoodfact/migrations/__pycache__/
-pur_beurre/__pycache__/
+*.pyc
 
 .vscode/
