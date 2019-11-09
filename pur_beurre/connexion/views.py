@@ -31,7 +31,7 @@ def connexion(request):
     pprint(f'LOCALS===>{locals()}')
     return render(request, 'auth/connexion.html', locals())
 
-#@login_required(login_url="/connexion")
+@login_required(login_url="/connexion")
 def deconnexion(request):
     """
     Logout user

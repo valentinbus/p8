@@ -11,11 +11,12 @@
         <div class="card-body">
             <h5 class="card-title">{{ product.name }}</h5>
             <p class="card-text">Nutriscore: {{ product.nutriscore }}</p>
-            <a href="/openfoodfact/replace/?id={{ product.pk }}" class="btn btn-primary">Description</a>
+            <a href="/openfoodfact/save_replacement/?id_product_to_replace={{ product_to_replace.id }}" class="btn btn-primary">Replace</a>
         </div>
     </div>
 {% endfor %}
-
+<h1>{{ product_to_replace.id }}</h1>
+<h1>{{ product_to_replace.name }}</h1>
 <div class="pagination">
     <span class="step-links">
         {% if replace_products.has_previous %}

@@ -1,5 +1,5 @@
 from django.core.management.base import BaseCommand, CommandError
-from ...init_db import OpenFoodFacts
+from ...openfoodfact import OpenFoodFacts
 from pprint import pprint
 
 
