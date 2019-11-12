@@ -3,5 +3,6 @@ CATEGORIES = [
     'yaourt',
     'pains',
     'vin',
-    'soda'
+    'soda',
+    'pizza'
 ]

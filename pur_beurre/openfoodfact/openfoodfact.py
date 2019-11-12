@@ -68,6 +68,3 @@ class OpenFoodFacts:
             mail, 
             password
         )
-        
-    def test(self):
-        return "ok"
