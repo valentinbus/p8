@@ -2,7 +2,6 @@
 <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
 <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 <!------ Include the above in your HEAD tag ---------->
-
 {% if error %}
 <p><strong>Utilisateur inconnu ou mauvais de mot de passe.</strong></p>
 {% endif %}
@@ -19,15 +18,13 @@ Vous êtes connecté, {{ user.username }} !
       <legend class="">Connexion</legend>
     </div>
     <div class="control-group">
-      <!-- Username -->
       {{ form.as_p }}
     </div>
  
     <div class="control-group">
-      <!-- Button -->
-      <div class="controls">
-        <button class="btn btn-success">Connexion</button>
-      </div>
+    <!-- Button -->
+      <button class="btn btn-success">Connexion</button>
+      <a href="/connexion/registration">S'incrire</button>
     </div>
   </fieldset>
 </form>

@@ -3,15 +3,13 @@
 <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 <!------ Include the above in your HEAD tag ---------->
 
+<div id="legend">
+    <legend class="">Faites votre recherche</legend>
+</div>
+
 <form class="form-horizontal" action='' method="POST" style="margin: 20">
-  {% csrf_token %}
-    <div id="legend">
-      <legend class="">Inscription</legend>
-    </div>
+{% csrf_token %}
     <div class="control-group">
-      {{ form.as_p }}
-    </div>
-    <div class="control-group">
-      <button class="btn btn-success">S'enregistrer</button>
+      {{ form }}
     </div>
 </form>

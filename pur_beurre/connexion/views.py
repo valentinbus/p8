@@ -6,8 +6,6 @@ from django.contrib.auth.decorators import login_required
 from .models import Profil
 from django.contrib.auth.models import User
 
-from pprint import pprint
-
 
 def connexion(request):
     """
@@ -28,7 +26,6 @@ def connexion(request):
     else:
         form = ConnexionForm()
 
-    pprint(f'LOCALS===>{locals()}')
     return render(request, 'auth/connexion.html', locals())
 
 @login_required(login_url="/connexion")
@@ -37,7 +34,8 @@ def deconnexion(request):
     Logout user
     """
     logout(request)
-    return render(request, "auth/deconnexion.html")
+    response = "Vous vous êtes bien déconnecté"
+    return render(request, "auth/validation_page.html", locals())
 
 def registration(request):
     """
@@ -45,8 +43,6 @@ def registration(request):
     """
     if request.method == "POST":
         form = RegistrationForm(request.POST)
-        pprint(f"form =={form}")
-        pprint(f"form =={form.cleaned_data}")
         if form.is_valid():
             username = form.cleaned_data['username']
             email = form.cleaned_data['email']
@@ -60,17 +56,19 @@ def registration(request):
             - Redirect to connexion page when it's done
             """
             if User.objects.filter(username=username):
-                print('username already exists')
+                print('=======username already exists======')
             else:
                 if password==confirm_password:
-                    User.objects.create_user(
+                    user = User.objects.create_user(
                         username=username,
                         email=email,
                         password=password
                     )
+                    response = "Vous vous êtes bien enregistré"
+                    return render(request, 'auth/validation_page.html', locals())
+
         else:
             form = RegistrationForm()
-            print("false")
 
     return render(request, 'auth/registration.html', locals())
 
