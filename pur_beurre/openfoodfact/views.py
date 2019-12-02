@@ -1,7 +1,7 @@
 from django.http import HttpResponseRedirect, HttpResponse, JsonResponse
 from django.core.paginator import Paginator
 from django.core import serializers
-from .models import Product, Save, Profil
+from .models import Product, Save, User
 from django.shortcuts import render
 from django.contrib.postgres.search import SearchQuery, SearchRank, SearchVector
 from django.contrib.auth.decorators import login_required
@@ -111,25 +111,15 @@ def save_replacement(request):
 
     product_to_replace = Product.objects.get(pk=ID_PRODUCT_TO_REPLACE)
     replace_product = Product.objects.get(pk=ID_REPLACE_PRODUCT)
-
-    # user = request.user
-    # save = Save.objects.create(
-    #     product_to_replace=product_to_replace,
-    #     replace_product=replace_product
-    # )
-
-    # user_profil = Profil.objects.create(
-    #     user=user,
-    #     saves=save
-    # )
     username = request.user.username
-    print(f"==={Profil.objects.get(pk=2).username}")
-    print(
-        f"{Profil.objects.all()}"
+    user = User.objects.get(
+        username=username
     )
 
-    return HttpResponse(
-        # f"user ==> {user.username}"
-        # f"- product to replace ==> {product_to_replace.name}\n"
-        # f"- replace product ==> {replace_product.name}"
+    save = Save.objects.create(
+        user=user,
+        product_to_replace=product_to_replace,
+        replace_product=replace_product
     )
+
+    return HttpResponse("Enregistrement réussi", status=200)
