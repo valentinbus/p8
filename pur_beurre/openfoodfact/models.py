@@ -13,6 +13,7 @@ class Product(models.Model):
     url_image_verso = models.CharField(max_length=500, null=True)
 
 class Save(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="user_save")
     product_to_replace = models.ForeignKey(Product, on_delete=models.CASCADE, related_name="product_to_replace")
     replace_product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name="replace_product") 
 
