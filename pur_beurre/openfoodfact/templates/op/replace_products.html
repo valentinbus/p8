@@ -1,25 +1,27 @@
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+{% extends 'base.html' %}
 
-<div id="legend">
-    <legend class="">Liste de tous les substituts du produit que vous avez selectionné</legend>
-</div>
-{% for product in replace_products %}
-    <div class="card" style="width: 18rem;">
-        <img src="{{ product.url_image_recto }}" class="card-img-top" alt="..." style="
-        height: 100px;
-        width: 100px;">
-        <div class="card-body">
-            <h5 class="card-title">{{ product.name }}</h5>
-            <p class="card-text">Nutriscore: {{ product.nutriscore }}</p>
-            <a href="/openfoodfact/save_replacement/?id_product_to_replace={{ product_to_replace.id }}&id_replace_product={{ product.id }}" class="btn btn-primary">Enregistrer le substitut</a>
-        </div>
+{% block content %}
+
+<div class="container-fluid">
+    <div id="legend">
+        <legend class="">Liste de tous les substituts du produit que vous avez selectionné</legend>
     </div>
-{% endfor %}
-<h1>{{ product_to_replace.id }}</h1>
-<h1>{{ product_to_replace.name }}</h1>
+    <div class="row">
+        {% for product in replace_products %}
+            <div class="card" style="width: 18rem;">
+                <img src="{{ product.url_image_recto }}" class="card-img-top" alt="..." style="
+                height: 100px;
+                width: 100px;">
+                <div class="card-body">
+                    <h5 class="card-title">{{ product.name }}</h5>
+                    <p class="card-text">Nutriscore: {{ product.nutriscore }}</p>
+                    <a href="/openfoodfact/replace/?id={{ product.pk }}" class="btn btn-primary">Proposer un substitut</a>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+
 <div class="pagination">
     <span class="step-links">
         {% if replace_products.has_previous %}
@@ -37,3 +39,4 @@
         {% endif %}
     </span>
 </div>
+{% endblock content %}

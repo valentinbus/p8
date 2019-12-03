@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-md-12">
+        {% for result in results %}
+			<div class="page-header">
+				<h1>
+					Enregistrement numéro {{ result.id_save}}
+				</h1>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+                    <div class="card" style="width: 18rem;">
+                        <img src="{{ result.product_to_replace.url_image_recto }}" class="card-img-top" alt="..." style="
+                        height: 100px;
+                        width: 100px;">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ result.product_to_replace.name }}</h5>
+                            <p class="card-text">Nutriscore: {{ result.product_to_replace.nutriscore }}</p>
+                            <a href="/openfoodfact/save_replacement/?id_result.product_to_replace_to_replace={{ result.product_to_replace_to_replace.id }}&id_replace_result.product_to_replace={{ result.product_to_replace.id }}" class="btn btn-primary">Enregistrer le substitut</a>
+                        </div>
+                    </div>
+				</div>
+				<div class="col-md-6">
+                    <div class="card" style="width: 18rem;">
+                        <img src="{{ result.product_to_replace.url_image_recto }}" class="card-img-top" alt="..." style="
+                        height: 100px;
+                        width: 100px;">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ result.replace_product.name }}</h5>
+                            <p class="card-text">Nutriscore: {{ result.replace_product.nutriscore }}</p>
+                            <a href="/openfoodfact/save_replacement/?id_result.product_to_replace_to_replace={{ result.product_to_replace_to_replace.id }}&id_replace_result.product_to_replace={{ result.product_to_replace.id }}" class="btn btn-primary">Enregistrer le substitut</a>
+                        </div>
+                    </div>
+				</div>
+			</div>
+        {% endfor %}
+		</div>
+	</div>
+</div>
+{% endblock content %}
