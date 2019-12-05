@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-md-12">
+			<div class="page-header">
+				<h1>
+					Plus d'information sur {{ product.name }}
+				</h1>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+                    <div class="card" style="width: 18rem;">
+                        <img src="{{ result.product_to_replace.url_image_recto }}" class="card-img-top" alt="..." style="
+                        height: 100px;
+                        width: 100px;">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ result.product_to_replace.name }}</h5>
+                            <p class="card-text">Nutriscore: {{ result.product_to_replace.nutriscore }}</p>
+                        </div>
+                    </div>
+				</div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

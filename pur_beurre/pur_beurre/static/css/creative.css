@@ -1850,7 +1850,6 @@ textarea.form-control {
 }
 
 .form-group {
-  margin-bottom: 1rem;
 }
 
 .form-text {
@@ -6209,7 +6208,11 @@ a.close.disabled {
 }
 
 .bg-primary {
-  background-color: #f4623a !important;
+  background-color: #fde9e3!important;
+}
+
+.bg-secondary{
+  background-color: darkcyan;
 }
 
 a.bg-primary:hover, a.bg-primary:focus,
@@ -9623,7 +9626,7 @@ hr.light {
 @media (min-width: 992px) {
   #mainNav {
     box-shadow: none;
-    background-color: transparent;
+    background-color: #343a40;
   }
   #mainNav .navbar-brand {
     color: rgba(255, 255, 255, 0.7);
@@ -9643,7 +9646,7 @@ hr.light {
   }
   #mainNav.navbar-scrolled {
     box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
-    background-color: #fff;
+    background-color: #adb5bd;
   }
   #mainNav.navbar-scrolled .navbar-brand {
     color: #212529;

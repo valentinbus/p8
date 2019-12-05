@@ -9,8 +9,10 @@ from .openfoodfact import OpenFoodFacts
 from .forms import SearchForm
 
 from pprint import pprint
+import logging
 
 
+logging.basicConfig(level=logging.DEBUG)
 op = OpenFoodFacts()
 
 def list_all_products(request):
@@ -60,6 +62,7 @@ def purpose_replace(request):
         request, 
         'op/replace_products.html', 
         {
+            'id_product': ID,
             'replace_products': replace_products, 
             'product_to_replace': product_to_replace
         }
@@ -123,3 +126,47 @@ def save_replacement(request):
     )
 
     return HttpResponse("Enregistrement réussi", status=200)
+
+@login_required(login_url="/connexion")
+def show_saves(request):
+    """
+    Show save replacement from user
+    """
+
+    username = request.user.username
+    user = User.objects.get(
+        username=username
+    )
+    
+    saves = Save.objects.filter(
+        user_id=user.id
+    )
+
+    results = list()
+
+    #ne fonctionne que si il y a plusieurs enregistrements (saves)
+    if saves:
+        for save in saves:
+            product_to_replace = Product.objects.get(id=save.product_to_replace_id)
+            replace_product = Product.objects.get(id=save.replace_product_id)
+            d = dict()
+            d["id_save"] = save.id
+            d["product_to_replace"] = product_to_replace
+            d["replace_product"] = replace_product
+
+            results.append(d)
+
+    return render(request, 'op/show_saves.html', locals())
+
+@login_required(login_url="/connexion")
+def more_informations(request):
+    """
+    Get more informations for saves replacement
+    """
+    id_product = request.GET['id']
+    logging.info(id_product)
+
+    product = Product.objects.get(
+        id=id_product
+    )
+    return render(request, "op/more_informations.html", locals())

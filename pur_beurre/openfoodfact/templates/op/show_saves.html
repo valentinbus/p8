@@ -1,7 +1,21 @@
 {% extends 'base.html' %}
 
-{% block content %}
+{% load static %}
 
+<link href="{% static 'vendor/fontawesome-free/css/all.min.css' %}" rel="stylesheet" type="text/css">
+
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css?family=Merriweather+Sans:400,700" rel="stylesheet">
+<link href='https://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic' rel='stylesheet' type='text/css'>
+
+<!-- Plugin CSS -->
+<link href="{% static 'vendor/magnific-popup/magnific-popup.css' %} "rel="stylesheet">
+
+<!-- Theme CSS - Includes Bootstrap -->
+<link href="{% static 'css/creative.min.css' %}" rel="stylesheet">
+
+{% block content %}
+<section class="page-section">
 <div class="container-fluid">
 	<div class="row">
 		<div class="col-md-12">
@@ -20,7 +34,7 @@
                         <div class="card-body">
                             <h5 class="card-title">{{ result.product_to_replace.name }}</h5>
                             <p class="card-text">Nutriscore: {{ result.product_to_replace.nutriscore }}</p>
-                            <a href="/openfoodfact/save_replacement/?id_result.product_to_replace_to_replace={{ result.product_to_replace_to_replace.id }}&id_replace_result.product_to_replace={{ result.product_to_replace.id }}" class="btn btn-primary">Enregistrer le substitut</a>
+                            <a href="/openfoodfact/save_replacement/?id_result.product_to_replace_to_replace={{ result.product_to_replace_to_replace.id }}&id_replace_result.product_to_replace={{ result.product_to_replace.id }}" class="btn btn-primary">Plus d'infos</a>
                         </div>
                     </div>
 				</div>
@@ -32,7 +46,7 @@
                         <div class="card-body">
                             <h5 class="card-title">{{ result.replace_product.name }}</h5>
                             <p class="card-text">Nutriscore: {{ result.replace_product.nutriscore }}</p>
-                            <a href="/openfoodfact/save_replacement/?id_result.product_to_replace_to_replace={{ result.product_to_replace_to_replace.id }}&id_replace_result.product_to_replace={{ result.product_to_replace.id }}" class="btn btn-primary">Enregistrer le substitut</a>
+                            <a href="/openfoodfact/save_replacement/?id_result.product_to_replace_to_replace={{ result.product_to_replace_to_replace.id }}&id_replace_result.product_to_replace={{ result.product_to_replace.id }}" class="btn btn-primary">Plus d'infos</a>
                         </div>
                     </div>
 				</div>
@@ -41,4 +55,24 @@
 		</div>
 	</div>
 </div>
+
+{% comment %} <div class="pagination">
+    <span class="step-links">
+        {% if results.has_previous %}
+            <a href="?page=1">&laquo; first</a>
+            <a href="?page={{ results.previous_page_number }}">previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ results.number }} of {{ results.paginator.num_pages }}.
+        </span>
+
+        {% if results.has_next %}
+            <a href="?page={{ results.next_page_number }}">next</a>
+            <a href="?page={{ results.paginator.num_pages }}">last &raquo;</a>
+        {% endif %}
+    </span>
+</div> {% endcomment %}
+</div>
+</section>
 {% endblock content %}

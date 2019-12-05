@@ -1,7 +1,21 @@
 {% extends 'base.html' %}
 
-{% block content %}
+{% load static %}
 
+<link href="{% static 'vendor/fontawesome-free/css/all.min.css' %}" rel="stylesheet" type="text/css">
+
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css?family=Merriweather+Sans:400,700" rel="stylesheet">
+<link href='https://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic' rel='stylesheet' type='text/css'>
+
+<!-- Plugin CSS -->
+<link href="{% static 'vendor/magnific-popup/magnific-popup.css' %} "rel="stylesheet">
+
+<!-- Theme CSS - Includes Bootstrap -->
+<link href="{% static 'css/creative.min.css' %}" rel="stylesheet">
+
+{% block content %}
+<section class="page-section">
 <div class="container-fluid">
     <div id="legend">
         <legend class="">Liste de tous les produits disponible</legend>
@@ -40,4 +54,5 @@
     </span>
 </div>
 </div>
+</section>
 {% endblock content %}
