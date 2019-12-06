@@ -24,13 +24,29 @@ def list_all_products(request):
 
     page = request.GET.get('page')
     products = paginator.get_page(page)
-    
+    result = list()
+
+    for product in products:
+        d = dict()
+        img_path = f"img/nutriscore/{product.nutriscore}.png"
+        d['img_path'] = img_path
+        d['product'] = product
+        result.append(d)
+
+    for element in result:
+        pprint(element)
     #Return json result if json == 1 in request GET paramter
     if request.GET.get('json'):
         seriale_objects = serializers.serialize('json', products_list)
         return HttpResponse(seriale_objects)
 
-    return render(request, 'op/list_products.html', {'products': products})
+    return render(
+        request, 'op/list_products.html',
+        {
+            'result': result,
+            'products': products
+        }
+    )
 
 def purpose_replace(request):
     """
@@ -90,13 +106,26 @@ def search_product(request):
             paginator = Paginator(products_list, 25)
             page = request.GET.get('page')
             products = paginator.get_page(page)
+            result = list()
+            for product in products:
+                d = dict()
+                img_path = f"img/nutriscore/{product.nutriscore}.png"
+                d['img_path'] = img_path
+                d['product'] = product
+                result.append(d)
 
             #Return json result if json == 1 in request GET paramter
             if request.GET.get('json'):
                 seriale_objects = serializers.serialize('json', products_list)
                 return HttpResponse(seriale_objects)
 
-            return render(request, "op/list_products.html", {'products': products})
+        return render(
+            request, 'op/list_products.html',
+            {
+                'result': result,
+                'products': products
+            }
+        )
 
     else:
         form = SearchForm()
@@ -170,3 +199,6 @@ def more_informations(request):
         id=id_product
     )
     return render(request, "op/more_informations.html", locals())
+
+def test(request):
+    return render(request, "op/test.html")

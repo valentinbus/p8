@@ -8,51 +8,44 @@
 <link href="https://fonts.googleapis.com/css?family=Merriweather+Sans:400,700" rel="stylesheet">
 <link href='https://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic' rel='stylesheet' type='text/css'>
 
-<!-- Plugin CSS -->
-<link href="{% static 'vendor/magnific-popup/magnific-popup.css' %} "rel="stylesheet">
-
-<!-- Theme CSS - Includes Bootstrap -->
-<link href="{% static 'css/creative.min.css' %}" rel="stylesheet">
-
 {% block content %}
-<section class="page-section">
+<section class="page-section bg-secondary">
 <div class="container-fluid">
-    <div id="legend">
-        <legend class="">Liste de tous les produits disponible</legend>
-    </div>
-    <div class="row">
-        {% for product in products %}
+    <div class="row align-items-center justify-content-center text-center">
+        <div id="legend">
+            <h1 class="text-uppercase text-white font-weight-bold">Liste de tous les produits disponible</h1>
+        </div>
+        {% for element in result %}
             <div class="card" style="width: 18rem;">
-                <img src="{{ product.url_image_recto }}" class="card-img-top" alt="..." style="
+                <img src="{{ element.product.url_image_recto }}" class="card-img-top" alt="..." style="
                 height: 100px;
                 width: 100px;">
                 <div class="card-body">
-                    <h5 class="card-title">{{ product.name }}</h5>
-                    <p class="card-text">Nutriscore: {{ product.nutriscore }}</p>
-                    <a href="/openfoodfact/replace/?id={{ product.pk }}" class="btn btn-primary">Proposer un substitut</a>
+                    <h5 class="card-title">{{ element.product.name }}</h5>
+                    <img class="img-fluid" src="{% static element.img_path %}">
+                    <a href="/openfoodfact/replace/?id={{ element.product.pk }}" class="btn btn-primary">Proposer un substitut</a>
                 </div>
             </div>
         {% endfor %}
     </div>
 </div>
+<div class="row align-items-center justify-content-center text-center">
+    <div class="pagination">
+        <span class="step-links">
+            {% if products.has_previous %}
+                <a class="text-primary font-weight-bold" href="?page=1">&laquo; first</a>
+                <a class="text-primary font-weight-bold" href="?page={{ products.previous_page_number }}">previous</a>
+            {% endif %}
 
-<div class="pagination">
-    <span class="step-links">
-        {% if products.has_previous %}
-            <a href="?page=1">&laquo; first</a>
-            <a href="?page={{ products.previous_page_number }}">previous</a>
-        {% endif %}
+            <span class="text-primary font-weight-bold">
+                Page {{ products.number }} of {{ products.paginator.num_pages }}.
+            </span>
 
-        <span class="current">
-            Page {{ products.number }} of {{ products.paginator.num_pages }}.
+            {% if products.has_next %}
+                <a class="text-primary font-weight-bold" href="?page={{ products.next_page_number }}">next</a>
+                <a class="text-primary font-weight-bold" href="?page={{ products.paginator.num_pages }}">last &raquo;</a>
+            {% endif %}
         </span>
-
-        {% if products.has_next %}
-            <a href="?page={{ products.next_page_number }}">next</a>
-            <a href="?page={{ products.paginator.num_pages }}">last &raquo;</a>
-        {% endif %}
-    </span>
+    </div>
 </div>
-</div>
-</section>
 {% endblock content %}

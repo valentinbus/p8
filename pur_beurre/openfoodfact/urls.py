@@ -8,5 +8,6 @@ urlpatterns = [
     url('save_replacement/', views.save_replacement),
     url('search_product/', views.search_product),
     url('saves/', views.show_saves),
-    url('more_informations/', views.more_informations)
+    url('more_informations/', views.more_informations),
+    url('test/', views.test)
 ]

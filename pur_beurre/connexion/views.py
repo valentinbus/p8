@@ -5,7 +5,10 @@ from django.http import HttpResponseRedirect, HttpResponse
 from django.contrib.auth.decorators import login_required
 from .models import Profil
 from django.contrib.auth.models import User
+import logging
 
+
+logging.basicConfig(level=logging.DEBUG)
 
 def connexion(request):
     """
@@ -56,7 +59,13 @@ def registration(request):
             - Redirect to connexion page when it's done
             """
             if User.objects.filter(username=username):
-                print('=======username already exists======')
+                logging.INFO("l'utilisateur existe déjà")
+                return render(
+                    request, 
+                    'auth/registration_confirmation.html', 
+                    {'response': "Cet utilisateur existe déjà"}
+                )
+
             else:
                 if password==confirm_password:
                     user = User.objects.create_user(
@@ -65,10 +74,14 @@ def registration(request):
                         password=password
                     )
                     response = "Vous vous êtes bien enregistré"
-                    return render(request, 'auth/validation_page.html', locals())
+                    return render(
+                        request, 
+                        'auth/registration_confirmation.html', 
+                        {'response': "Votre utilisateur a bien était enregistré"}
+                    )
 
         else:
-            form = RegistrationForm()
+            form = ConnexionForm()
 
     return render(request, 'auth/registration.html', locals())
 
