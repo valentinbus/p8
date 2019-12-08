@@ -15,16 +15,14 @@
 <link href="{% static 'css/creative.min.css' %}" rel="stylesheet">
 
 {% block content %}
-<section class="page-section">
+
+<section class="page-section bg-secondary">
 <div class="container-fluid">
-	<div class="row">
-		<div class="col-md-12">
+    <div class="legend align-items-center justify-content-center text-center">
+        <h1 class="text-uppercase text-white font-weight-bold">Vos Enregistrements</h1>
+    </div>
+    <div class="row align-items-center justify-content-center text-center">
         {% for result in results %}
-			<div class="page-header">
-				<h1>
-					Enregistrement numéro {{ result.id_save}}
-				</h1>
-			</div>
 			<div class="row">
 				<div class="col-md-6">
                     <div class="card" style="width: 18rem;">
@@ -34,28 +32,26 @@
                         <div class="card-body">
                             <h5 class="card-title">{{ result.product_to_replace.name }}</h5>
                             <p class="card-text">Nutriscore: {{ result.product_to_replace.nutriscore }}</p>
-                            <a href="/openfoodfact/save_replacement/?id_result.product_to_replace_to_replace={{ result.product_to_replace_to_replace.id }}&id_replace_result.product_to_replace={{ result.product_to_replace.id }}" class="btn btn-primary">Plus d'infos</a>
+                            <a href="/openfoodfact/more_informations/?id={{ result.product_to_replace.id }}" class="btn btn-primary">Plus d'infos</a>
                         </div>
                     </div>
 				</div>
 				<div class="col-md-6">
                     <div class="card" style="width: 18rem;">
-                        <img src="{{ result.product_to_replace.url_image_recto }}" class="card-img-top" alt="..." style="
+                        <img src="{{ result.replace_product.url_image_recto }}" class="card-img-top" alt="..." style="
                         height: 100px;
                         width: 100px;">
                         <div class="card-body">
                             <h5 class="card-title">{{ result.replace_product.name }}</h5>
                             <p class="card-text">Nutriscore: {{ result.replace_product.nutriscore }}</p>
-                            <a href="/openfoodfact/save_replacement/?id_result.product_to_replace_to_replace={{ result.product_to_replace_to_replace.id }}&id_replace_result.product_to_replace={{ result.product_to_replace.id }}" class="btn btn-primary">Plus d'infos</a>
+                            <a href="/openfoodfact/more_informations/?id={{ result.replace_product.id }}" class="btn btn-primary">Plus d'infos</a>
                         </div>
                     </div>
 				</div>
 			</div>
         {% endfor %}
-		</div>
-	</div>
+    </div>
 </div>
-
 {% comment %} <div class="pagination">
     <span class="step-links">
         {% if results.has_previous %}

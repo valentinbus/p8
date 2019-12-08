@@ -2,7 +2,7 @@ from django.http import HttpResponseRedirect, HttpResponse, JsonResponse
 from django.core.paginator import Paginator
 from django.core import serializers
 from .models import Product, Save, User
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.contrib.postgres.search import SearchQuery, SearchRank, SearchVector
 from django.contrib.auth.decorators import login_required
 from .openfoodfact import OpenFoodFacts
@@ -78,6 +78,7 @@ def purpose_replace(request):
         request, 
         'op/replace_products.html', 
         {
+            'img_path': "img/nutriscore/a.png",
             'id_product': ID,
             'replace_products': replace_products, 
             'product_to_replace': product_to_replace
@@ -154,7 +155,7 @@ def save_replacement(request):
         replace_product=replace_product
     )
 
-    return HttpResponse("Enregistrement réussi", status=200)
+    return redirect('/openfoodfact/saves')
 
 @login_required(login_url="/connexion")
 def show_saves(request):
@@ -198,7 +199,4 @@ def more_informations(request):
     product = Product.objects.get(
         id=id_product
     )
-    return render(request, "op/more_informations.html", locals())
-
-def test(request):
-    return render(request, "op/test.html")
+    return render(request, "op/more_informations.html", {'product': product})

@@ -15,12 +15,12 @@
 <link href="{% static 'css/creative.min.css' %}" rel="stylesheet">
 
 {% block content %}
-<section class="page-section">
+<section class="page-section bg-secondary">
 <div class="container-fluid">
-    <div id="legend">
-        <legend class="">Liste de tous les substituts du produit que vous avez selectionné</legend>
+    <div class="legend align-items-center justify-content-center text-center">
+        <h1 class="text-uppercase text-white font-weight-bold">Liste de tous les substituts du produit que vous avez selectionné</h1>
     </div>
-    <div class="row">
+    <div class="row align-items-center justify-content-center text-center">
         {% for product in replace_products %}
             <div class="card" style="width: 18rem;">
                 <img src="{{ product.url_image_recto }}" class="card-img-top" alt="..." style="
@@ -28,30 +28,31 @@
                 width: 100px;">
                 <div class="card-body">
                     <h5 class="card-title">{{ product.name }}</h5>
-                    <p class="card-text">Nutriscore: {{ product.nutriscore }}</p>
+                    <img class="img-fluid" src="/static/img/nutriscore/{{ product.nutriscore}}.png">
                     <a href="/openfoodfact/save_replacement/?id_product_to_replace={{ product_to_replace.id }}&id_replace_product={{ product.id }}" class="btn btn-primary">Enregistrer le substitut</a>
                 </div>
             </div>
         {% endfor %}
     </div>
 </div>
-
+<div class="row align-items-center justify-content-center text-center">
 <div class="pagination">
     <span class="step-links">
         {% if replace_products.has_previous %}
-            <a href="/openfoodfact/replace/?id={{ id_product }}&page=1">&laquo; first</a>
-            <a href="/openfoodfact/replace/?id={{ id_product }}&page={{ replace_products.previous_page_number }}">previous</a>
+            <a class="text-primary font-weight-bold" href="/openfoodfact/replace/?id={{ id_product }}&page=1">&laquo; first</a>
+            <a class="text-primary font-weight-bold" href="/openfoodfact/replace/?id={{ id_product }}&page={{ replace_products.previous_page_number }}">previous</a>
         {% endif %}
 
-        <span class="current">
+        <span class="text-primary font-weight-bold">
             Page {{ replace_products.number }} of {{ replace_products.paginator.num_pages }}.
         </span>
 
         {% if replace_products.has_next %}
-            <a href="/openfoodfact/replace/?id={{ id_product }}&page={{ replace_products.next_page_number }}">next</a>
-            <a href="/openfoodfact/replace/?id={{ id_product }}&page={{ replace_products.paginator.num_pages }}">last &raquo;</a>
+            <a class="text-primary font-weight-bold" href="/openfoodfact/replace/?id={{ id_product }}&page={{ replace_products.next_page_number }}">next</a>
+            <a class="text-primary font-weight-bold" href="/openfoodfact/replace/?id={{ id_product }}&page={{ replace_products.paginator.num_pages }}">last &raquo;</a>
         {% endif %}
     </span>
+</div>
 </div>
 </section>
 {% endblock content %}
