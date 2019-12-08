@@ -52,9 +52,10 @@
           <li class="nav-item">
             <a class="nav-link js-scroll-trigger" href="/connexion/registration">Créer un compte</a>
           </li>
-          <div class="form-group">
-            <input type="text" class="form-control" placeholder="Recherche...">
-          </div>
+        <form class="form-horizontal" action='/openfoodfact/search_product/' method="GET" style="margin: 20">
+        {% csrf_token %}
+            <input type="text" class="form-control" name="q" placeholder="">
+        </form>
         </ul>
       </div>
     </div>
