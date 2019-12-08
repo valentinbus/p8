@@ -77,11 +77,11 @@ def registration(request):
                     return render(
                         request, 
                         'auth/registration_confirmation.html', 
-                        {'response': "Votre utilisateur a bien était enregistré"}
+                        {'response': "Votre utilisateur a bien été enregistré"}
                     )
 
         else:
-            form = ConnexionForm()
+            form = RegistrationForm()
 
     return render(request, 'auth/registration.html', locals())
 

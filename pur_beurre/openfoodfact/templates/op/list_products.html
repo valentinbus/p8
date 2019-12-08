@@ -11,10 +11,10 @@
 {% block content %}
 <section class="page-section bg-secondary">
 <div class="container-fluid">
+    <div class="legend align-items-center justify-content-center text-center">
+        <h1 class="text-uppercase text-white font-weight-bold">Liste de tous les produits disponible</h1>
+    </div>
     <div class="row align-items-center justify-content-center text-center">
-        <div id="legend">
-            <h1 class="text-uppercase text-white font-weight-bold">Liste de tous les produits disponible</h1>
-        </div>
         {% for element in result %}
             <div class="card" style="width: 18rem;">
                 <img src="{{ element.product.url_image_recto }}" class="card-img-top" alt="..." style="
