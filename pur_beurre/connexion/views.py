@@ -51,15 +51,8 @@ def registration(request):
             email = form.cleaned_data['email']
             password = form.cleaned_data['password']
             confirm_password = form.cleaned_data['confirm_password']
-
-            """
-            ToDo 
-            if user not in DB create user with these fields
-            - check user in db 
-            - Redirect to connexion page when it's done
-            """
+            
             if User.objects.filter(username=username):
-                logging.INFO("l'utilisateur existe déjà")
                 return render(
                     request, 
                     'auth/registration_confirmation.html', 
@@ -80,14 +73,7 @@ def registration(request):
                         {'response': "Votre utilisateur a bien été enregistré"}
                     )
 
-        else:
-            form = RegistrationForm()
+    else:
+        form = RegistrationForm()
 
-    return render(request, 'auth/registration.html', locals())
-
-def test(request):
-    user = User.objects
-    if user.filter(username="valentin"):
-        print('ok')
-    print(user)
-    return HttpResponse(user)
+    return render(request, 'auth/registration.html', {'form': form})
