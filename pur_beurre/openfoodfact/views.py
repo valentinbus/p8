@@ -91,45 +91,45 @@ def search_product(request):
     ToDo
     Comment utiliser une fonctionnolité d'openfoodfact si je ne peux pas l'importer
     """
-    if request.method == "POST":
+    q = request.GET.get('q')
+
+    if q:
         product_list = list()
         all_products = Product.objects.all()
 
-        form = SearchForm(request.POST)
-        if form.is_valid():
-            search = form.cleaned_data["search"]
-
-            products_list = Product.objects.annotate(
+        products_list = Product.objects.annotate(
                 search = SearchVector('name')
-            ).filter(search=search)
+        ).filter(search=q)
 
-            paginator = Paginator(products_list, 25)
-            page = request.GET.get('page')
-            products = paginator.get_page(page)
-            result = list()
-            for product in products:
-                d = dict()
-                img_path = f"img/nutriscore/{product.nutriscore}.png"
-                d['img_path'] = img_path
-                d['product'] = product
-                result.append(d)
+        paginator = Paginator(products_list, 25)
+        page = request.GET.get('page')
 
-            #Return json result if json == 1 in request GET paramter
-            if request.GET.get('json'):
-                seriale_objects = serializers.serialize('json', products_list)
-                return HttpResponse(seriale_objects)
+        products = paginator.get_page(page)
+
+        result = list()
+        for product in products:
+            d = dict()
+            img_path = f"img/nutriscore/{product.nutriscore}.png"
+            d['img_path'] = img_path
+            d['product'] = product
+            result.append(d)
+
+        #Return json result if json == 1 in request GET paramter
+        if request.GET.get('json'):
+            seriale_objects = serializers.serialize('json', products_list)
+            return HttpResponse(seriale_objects)
 
         return render(
             request, 'op/list_products.html',
             {
+                'q': q,
                 'result': result,
                 'products': products
             }
         )
-
     else:
-        form = SearchForm()
-    return render(request, "op/search_product.html", locals())
+        return render(request, "op/search_product.html", locals())
+
 
 @login_required(login_url="/connexion")
 def save_replacement(request):
