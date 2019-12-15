@@ -22,16 +22,22 @@
     </div>
     <div class="row align-items-center justify-content-center text-center">
         {% for product in replace_products %}
-            <div class="card" style="width: 18rem;">
-                <img src="{{ product.url_image_recto }}" class="card-img-top" alt="..." style="
-                height: 100px;
-                width: 100px;">
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-header">
+                    <img src="{{ product.url_image_recto }}" class="card-img-top" alt="..." style="
+                    height: 100px;
+                    width: 100px;">
+                    <img class="img-pastille" src="/static/img/pastilles/{{ product.nutriscore }}.png" style="position: relative; left: 30%;">
+                </div>
                 <div class="card-body">
                     <h5 class="card-title">{{ product.name }}</h5>
-                    <img class="img-fluid" src="/static/img/nutriscore/{{ product.nutriscore}}.png">
+                </div>
+                <div class="card-footer">
                     <a href="/openfoodfact/save_replacement/?id_product_to_replace={{ product_to_replace.id }}&id_replace_product={{ product.id }}" class="btn btn-primary">Enregistrer le substitut</a>
                 </div>
             </div>
+        </div>
         {% endfor %}
     </div>
 </div>

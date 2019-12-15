@@ -15,9 +15,11 @@
     </div>
     <div class="row align-items-center justify-content-center text-center">
         <div class="card" style="width: 18rem;">
-            <img src="{{ product.url_image_recto }}" class="card-img-top" alt="..." style="
-            height: 100px;
-            width: 100px;">
+            <div class="card-header">
+                <img src="{{ product.url_image_recto }}" class="card-img-top" alt="..." style="
+                height: 100px;
+                width: 100px;">
+            </div>
             <div class="card-body">
                 <h5 class="card-title">{{ product.name }}</h5>
                 <img class="img-fluid" src="/static/img/nutriscore/{{ product.nutriscore }}.png">

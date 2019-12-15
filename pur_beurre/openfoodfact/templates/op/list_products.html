@@ -15,17 +15,23 @@
         <h1 class="text-uppercase text-white font-weight-bold">Liste de tous les produits disponible</h1>
     </div>
     <div class="row align-items-center justify-content-center text-center">
-        {% for element in result %}
-            <div class="card" style="width: 18rem;">
-                <img src="{{ element.product.url_image_recto }}" class="card-img-top" alt="..." style="
-                height: 100px;
-                width: 100px;">
+        {% for product in products %}
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-header">
+                    <img src="{{ product.url_image_recto }}" class="card-img-top" alt="..." style="
+                    height: 100px;
+                    width: 100px;">
+                    <img class="img-pastille align-right" src="/static/img/pastilles/{{ product.nutriscore }}.png" style="position: relative; left: -4%; top: -28px;">
+                </div>
                 <div class="card-body">
-                    <h5 class="card-title">{{ element.product.name }}</h5>
-                    <img class="img-fluid" src="{% static element.img_path %}">
-                    <a href="/openfoodfact/replace/?id={{ element.product.pk }}" class="btn btn-primary">Proposer un substitut</a>
+                    <h5 class="card-title">{{ product.name }}</h5>
+                </div>
+                <div class="card-footer">
+                    <a href="/openfoodfact/replace/?id={{ product.pk }}" class="btn btn-primary">Proposer un substitut</a>
                 </div>
             </div>
+        </div>
         {% endfor %}
     </div>
 </div>
