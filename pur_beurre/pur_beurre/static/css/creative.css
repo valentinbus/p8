@@ -206,6 +206,12 @@ img {
   border-style: none;
 }
 
+img-pastille {
+  position: relative;
+  width: 100%;
+  left: 30%;
+}
+
 svg {
   overflow: hidden;
   vertical-align: middle;
@@ -4441,6 +4447,8 @@ input[type="button"].btn-block {
 }
 
 .card-img-top {
+  object-fit: cover;
+  object-position: center;
   width: 100%;
   border-top-left-radius: calc(0.25rem - 1px);
   border-top-right-radius: calc(0.25rem - 1px);
