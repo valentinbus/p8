@@ -37,6 +37,9 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarResponsive">
         <ul class="navbar-nav ml-auto my-2 my-lg-0">
+          <li class="nav-item">
+            <a class="nav-link js-scroll-trigger" href="/openfoodfact/list/">Tous les produits</a>
+          </li>
         {% if user.is_authenticated %}
           <li class="nav-item">
             <a class="nav-link js-scroll-trigger" href="/connexion/deconnexion">Se déconnecter</a>
@@ -48,12 +51,11 @@
           <li class="nav-item">
             <a class="nav-link js-scroll-trigger" href="/connexion/">Se connecter</a>
           </li>
-        {% endif %}
           <li class="nav-item">
             <a class="nav-link js-scroll-trigger" href="/connexion/registration">Créer un compte</a>
           </li>
+        {% endif %}
         <form class="form-horizontal" action='/openfoodfact/search_product/' method="GET" style="margin: 20">
-        {% csrf_token %}
             <input type="text" class="form-control" name="q" placeholder="Recherche...">
         </form>
         </ul>
