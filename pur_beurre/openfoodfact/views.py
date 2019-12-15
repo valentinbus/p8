@@ -24,17 +24,7 @@ def list_all_products(request):
 
     page = request.GET.get('page')
     products = paginator.get_page(page)
-    result = list()
 
-    for product in products:
-        d = dict()
-        img_path = f"img/nutriscore/{product.nutriscore}.png"
-        d['img_path'] = img_path
-        d['product'] = product
-        result.append(d)
-
-    for element in result:
-        pprint(element)
     #Return json result if json == 1 in request GET paramter
     if request.GET.get('json'):
         seriale_objects = serializers.serialize('json', products_list)
@@ -43,7 +33,6 @@ def list_all_products(request):
     return render(
         request, 'op/list_products.html',
         {
-            'result': result,
             'products': products
         }
     )
@@ -78,7 +67,6 @@ def purpose_replace(request):
         request, 
         'op/replace_products.html', 
         {
-            'img_path': "img/nutriscore/a.png",
             'id_product': ID,
             'replace_products': replace_products, 
             'product_to_replace': product_to_replace
@@ -185,8 +173,25 @@ def show_saves(request):
             d["replace_product"] = replace_product
 
             results.append(d)
+    else:
+        return render(request, 'op/show_saves.html', {'response': "Vous n'avez pas encore d'enregistrement"})
 
     return render(request, 'op/show_saves.html', locals())
+
+# @login_required(login_url="/connexion")
+# def delete_save(request):
+#     """
+#     Delete save
+#     """
+#     id_save = request.GET['id_save']
+
+#     save = Save.objects.filter(
+#         id=id_save
+#     ).delete()
+
+#     return show_saves(request)
+
+
 
 @login_required(login_url="/connexion")
 def more_informations(request):
@@ -200,3 +205,13 @@ def more_informations(request):
         id=id_product
     )
     return render(request, "op/more_informations.html", {'product': product})
+
+def test(request):
+    product = {
+        "name": "PIZZA",
+        "pk": 3,
+        "nutriscore": "a",
+        "url_image_recto": "https://static.openfoodfacts.org/images/products/303/371/006/5066/front_fr.48.400.jpg",
+
+    }
+    return render(request, "op/test.html", {'product': product})
