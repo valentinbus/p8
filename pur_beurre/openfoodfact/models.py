@@ -8,7 +8,7 @@ class Product(models.Model):
     name = models.CharField(max_length=200, null=True)
     nutriscore = models.CharField(max_length=100, null=True)
     category = models.CharField(max_length=200, null=True)
-    url_op = models.CharField(max_length=500, null=True)
+    url_op = models.CharField(max_length=1024, null=True)
     url_image_recto = models.CharField(max_length=500, null=True)
     url_image_verso = models.CharField(max_length=500, null=True)
 

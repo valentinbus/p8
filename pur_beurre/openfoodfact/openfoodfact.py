@@ -40,7 +40,7 @@ class OpenFoodFacts:
                                 "name": product.get("product_name"),
                                 "category": product.get("categories_hierarchy")[0][3:],
                                 "nutriscore": product.get("nutrition_grades_tags")[0],
-                                "url_op": "ok",
+                                "url_op": product.get("url"),
                                 "url_image_recto": product.get("image_front_url"),
                                 "url_image_verso": product.get("image_nutrition_url"),
                             }
