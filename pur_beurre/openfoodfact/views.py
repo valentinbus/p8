@@ -8,7 +8,7 @@ from django.contrib.auth.decorators import login_required
 from .openfoodfact import OpenFoodFacts
 from .forms import SearchForm
 
-from pprint import pprint
+from pprint import pformat
 import logging
 
 
@@ -191,8 +191,6 @@ def show_saves(request):
 
 #     return show_saves(request)
 
-
-
 @login_required(login_url="/connexion")
 def more_informations(request):
     """
@@ -204,6 +202,11 @@ def more_informations(request):
     product = Product.objects.get(
         id=id_product
     )
+    logging.info(f"URL OP ===> {pformat(product.url_op)}")
+
+    if product.url_op is None:
+        product.url_op = "https://fr.openfoodfacts.org/"
+        
     return render(request, "op/more_informations.html", {'product': product})
 
 def test(request):
