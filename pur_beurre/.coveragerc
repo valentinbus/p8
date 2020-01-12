@@ -1,0 +1,4 @@
+[report]
+omit=
+    /Users/valentinbus/Documents/repo/openclassrooms/p8/pur_beurre/venv/*
+    /Users/valentinbus/Documents/repo/openclassrooms/p8/pur_beurre/openfoodfact/migrations/*
