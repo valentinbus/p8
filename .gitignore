@@ -1,5 +1,7 @@
 venv/
-
 *.pyc
-
-.vscode/
+pur_beurre/.vscode/*
+htmlcov/
+pur_beurre/openfoodfact/migrations/
+.coverage
+pur_beurre/geckodriver.log
