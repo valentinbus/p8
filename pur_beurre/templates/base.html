@@ -38,25 +38,25 @@
       <div class="collapse navbar-collapse" id="navbarResponsive">
         <ul class="navbar-nav ml-auto my-2 my-lg-0">
           <li class="nav-item">
-            <a class="nav-link js-scroll-trigger" href="/openfoodfact/list/">Tous les produits</a>
+            <a id="list_button" class="nav-link js-scroll-trigger" href="/openfoodfact/list/">Tous les produits</a>
           </li>
         {% if user.is_authenticated %}
           <li class="nav-item">
-            <a class="nav-link js-scroll-trigger" href="/connexion/deconnexion">Se déconnecter</a>
+            <a id="deconnexion_button" class="nav-link js-scroll-trigger" href="/connexion/deconnexion">Se déconnecter</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link js-scroll-trigger" href="/openfoodfact/saves/">Mes produits</a>
+            <a id="my_products_button" class="nav-link js-scroll-trigger" href="/openfoodfact/saves/">Mes produits</a>
           </li>
         {% else %}
           <li class="nav-item">
-            <a class="nav-link js-scroll-trigger" href="/connexion/">Se connecter</a>
+            <a id="connexion_button" class="nav-link js-scroll-trigger" href="/connexion/">Se connecter</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link js-scroll-trigger" href="/connexion/registration">Créer un compte</a>
+            <a id="create_account_button" class="nav-link js-scroll-trigger" href="/connexion/registration">Créer un compte</a>
           </li>
         {% endif %}
         <form class="form-horizontal" action='/openfoodfact/search_product/' method="GET" style="margin: 20">
-            <input type="text" class="form-control" name="q" placeholder="Recherche...">
+            <input id="search_form" type="text" class="form-control" name="q" placeholder="Recherche...">
         </form>
         </ul>
       </div>
