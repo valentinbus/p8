@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% load static %}
+
+<link href="{% static 'vendor/fontawesome-free/css/all.min.css' %}" rel="stylesheet" type="text/css">
+
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css?family=Merriweather+Sans:400,700" rel="stylesheet">
+<link href='https://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic' rel='stylesheet' type='text/css'>
+
+{% block content %}
+
+<section class="page-section bg-secondary">
+<div class="container-fluid">
+    <div class="legend align-items-center justify-content-center text-center">
+        <h1 class="text-uppercase text-white font-weight-bold">Liste de tous les produits disponible</h1>
+    </div>
+    <div class="row align-items-center justify-content-center text-center">
+        <div class="card col-4 mx-1 px-0" style="width: 18rem;">
+            <div class="card-header">
+            <img src="{{ product.url_image_recto }}" class="card-img-top" alt="..." style="
+            height: 100px;
+            width: 100px;">
+            <img class="img-fluid card-img-top" style="width: 50%" src="/static/img/nutriscore/{{ product.nutriscore }}.png">
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">{{ product.name }}</h5>
+            </div>
+            <div class="card-footer">
+                <a href="ok" class="btn btn-primary">Proposer un substitut</a>
+            </div>
+        </div>
+    </div>
+</div>      
+</section>
+{% endblock content %}
