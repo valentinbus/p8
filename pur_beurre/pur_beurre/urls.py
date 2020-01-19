@@ -19,7 +19,7 @@ from . import views
 
 
 urlpatterns = [
-    path('', views.home),
+    path('', views.home, name='home'),
     path('connexion/', include("connexion.urls")),
     path('openfoodfact/', include('openfoodfact.urls')),
     path('admin/', admin.site.urls),
