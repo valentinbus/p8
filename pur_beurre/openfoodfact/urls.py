@@ -9,5 +9,4 @@ urlpatterns = [
     url('search_product/', views.search_product, name='search_product'),
     url('saves/', views.show_saves, name='saves'),
     url('more_informations/', views.more_informations, name='more_informations'),
-    url('test/', views.test)
 ]
