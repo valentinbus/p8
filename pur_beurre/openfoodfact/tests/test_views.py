@@ -36,7 +36,7 @@ class ViewsTest(TestCase):
         Product.objects.create(**product2)
         for product in Product.objects.all():
             logging.info(f"ID:::{product.id}")
-            
+
         user = User.objects.create_user(
             username='valentin', 
             email='valentin@gmail.com',
@@ -72,9 +72,9 @@ class ViewsTest(TestCase):
             "url_image_verso": "url image verso",
         }
 
-        Product.objects.create(**product1)
-        Product.objects.create(**product2)
-        response = client.get(reverse('replace'), {'id': 4})
+        product1 = Product.objects.create(**product1)
+        product2 = Product.objects.create(**product2)
+        response = client.get(reverse('replace'), {'id': f"{product1.id}"})
 
         for product in Product.objects.all():
             logging.info(f"\nPURPOSE REPLACE:::{product.id}")
@@ -89,8 +89,6 @@ class ViewsTest(TestCase):
         response = client.get(reverse('search_product'))
         self.assertEquals(response.status_code, 200)
 
-
-    # #TODO test redirection
     def test_save_replacement(self):
         product1 = {
             "name": "name",
@@ -130,11 +128,57 @@ class ViewsTest(TestCase):
 
         self.assertEquals(response.status_code, 302)
 
-    # def test_show_saves(self):
-    #     response = client.get(reverse("saves"))
-    #     self.assertEquals(response.status_code, 200)
-    # def test_purpose_replace(self):
+    def test_show_saves(self):
+        product1 = {
+            "name": "name",
+            "category": "category",
+            "nutriscore": "a",
+            "url_op": "url op",
+            "url_image_recto": "url image recto",
+            "url_image_verso": "url image verso",
+        }
+        product2 = {
+            "name": "name",
+            "category": "category",
+            "nutriscore": "b",
+            "url_op": "url op",
+            "url_image_recto": "url image recto",
+            "url_image_verso": "url image verso",
+        }
+
+        product1 = Product.objects.create(**product1)
+        product2 = Product.objects.create(**product2)
+
+        user = User.objects.create_user(
+            username='valentin', 
+            email='valentin@gmail.com',
+            password='psswd'
+        )
+
+        Save.objects.create(
+            user=user,
+            product_to_replace=Product.objects.get(pk=f"{product1.id}"),
+            replace_product=Product.objects.get(pk=f"{product2.id}")
+        )
+        client.login(username='valentin', password='psswd')
+        response = client.get(reverse("saves"))
+        self.assertEquals(response.status_code, 200)
 
     def test_more_informations(self):
-        response = client.get(reverse('more_informations'), {'id': 3})
-        self.assertEquals(response.status_code, 302)
+        product1 = {
+            "name": "name",
+            "category": "category",
+            "nutriscore": "a",
+            "url_op": "url op",
+            "url_image_recto": "url image recto",
+            "url_image_verso": "url image verso",
+        }
+        user = User.objects.create_user(
+            username='valentin', 
+            email='valentin@gmail.com',
+            password='psswd'
+        )
+        client.login(username='valentin', password='psswd')
+        product1 = Product.objects.create(**product1)
+        response = client.get(reverse('more_informations'), {'id': f"{product1.id}"})
+        self.assertEquals(response.status_code, 200)
