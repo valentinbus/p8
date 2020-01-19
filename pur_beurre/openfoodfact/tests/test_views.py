@@ -13,37 +13,40 @@ from django.contrib.postgres.search import SearchQuery, SearchRank, SearchVector
 logging.basicConfig(level=logging.DEBUG)
 client = Client()
 class ViewsTest(TestCase):
-    @classmethod
-    def setUp(self):
-        # Set up data for the whole TestCase
 
-        product = {
+    def test_list_products(self):
+        product1 = {
             "name": "name",
             "category": "category",
-            "nutriscore": "nutriscore",
+            "nutriscore": "a",
+            "url_op": "url op",
+            "url_image_recto": "url image recto",
+            "url_image_verso": "url image verso",
+        }
+        product2 = {
+            "name": "name",
+            "category": "category",
+            "nutriscore": "b",
             "url_op": "url op",
             "url_image_recto": "url image recto",
             "url_image_verso": "url image verso",
         }
 
-        for i in range(1, 10):
-            products = Product.objects.create(**product)
-            logging.info(f"ID:::{products.id}")
-
-
+        Product.objects.create(**product1)
+        Product.objects.create(**product2)
+        for product in Product.objects.all():
+            logging.info(f"ID:::{product.id}")
+            
         user = User.objects.create_user(
             username='valentin', 
             email='valentin@gmail.com',
             password='psswd'
         )
-
         Save.objects.create(
             user=user,
             product_to_replace=Product.objects.get(pk=2),
             replace_product=Product.objects.get(pk=3)
         )
-
-    def test_list_products(self):
         response = client.get(reverse('list'))
         self.assertEquals(response.status_code, 200)
 
@@ -52,7 +55,30 @@ class ViewsTest(TestCase):
         self.assertEquals(response.status_code, 200)
 
     def test_purpose_replace(self):
-        response = client.get(reverse('replace'), {'id': 31})
+        product1 = {
+            "name": "name",
+            "category": "category",
+            "nutriscore": "a",
+            "url_op": "url op",
+            "url_image_recto": "url image recto",
+            "url_image_verso": "url image verso",
+        }
+        product2 = {
+            "name": "name",
+            "category": "category",
+            "nutriscore": "b",
+            "url_op": "url op",
+            "url_image_recto": "url image recto",
+            "url_image_verso": "url image verso",
+        }
+
+        Product.objects.create(**product1)
+        Product.objects.create(**product2)
+        response = client.get(reverse('replace'), {'id': 4})
+
+        for product in Product.objects.all():
+            logging.info(f"\nPURPOSE REPLACE:::{product.id}")
+        
         self.assertEquals(response.status_code, 200)
 
     def test_search_product(self):
@@ -65,9 +91,44 @@ class ViewsTest(TestCase):
 
 
     # #TODO test redirection
-    # def test_save_replacement(self):
-    #     response = client.get(reverse('save_replacement'), {'id_product_to_replace': 30}, {'id_replace_product': 33})
-    #     self.assertEquals(response.status_code, 302)
+    def test_save_replacement(self):
+        product1 = {
+            "name": "name",
+            "category": "category",
+            "nutriscore": "a",
+            "url_op": "url op",
+            "url_image_recto": "url image recto",
+            "url_image_verso": "url image verso",
+        }
+        product2 = {
+            "name": "name",
+            "category": "category",
+            "nutriscore": "b",
+            "url_op": "url op",
+            "url_image_recto": "url image recto",
+            "url_image_verso": "url image verso",
+        }
+
+        product1 = Product.objects.create(**product1)
+        product2 = Product.objects.create(**product2)
+        for product in Product.objects.all():
+            logging.info(f"\nPURPOSE REPLACE:::{product.id}")
+
+        user = User.objects.create_user(
+            username='valentin', 
+            email='valentin@gmail.com',
+            password='psswd'
+        )
+        logged_in = self.client.login(username='valentin', password='psswd')
+        response = self.client.get(
+            reverse('save_replacement'), 
+            {
+                'id_product_to_replace': f"{product1.id}",
+                'id_replace_product': f"{product2.id}"
+            }, 
+        )
+
+        self.assertEquals(response.status_code, 302)
 
     # def test_show_saves(self):
     #     response = client.get(reverse("saves"))
@@ -75,5 +136,5 @@ class ViewsTest(TestCase):
     # def test_purpose_replace(self):
 
     def test_more_informations(self):
-        response = client.get(reverser('more_informations'), {'id': 22})
-        self.assertEquals(response.status_code, 200)
+        response = client.get(reverse('more_informations'), {'id': 3})
+        self.assertEquals(response.status_code, 302)
