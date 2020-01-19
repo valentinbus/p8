@@ -10,6 +10,7 @@ import logging
 
 logging.basicConfig(level=logging.DEBUG)
 
+
 def connexion(request):
     """
     form to connect to the platform
@@ -21,15 +22,19 @@ def connexion(request):
         if form.is_valid():
             username = form.cleaned_data["username"]
             password = form.cleaned_data["password"]
-            user = authenticate(username=username, password=password)  # Nous vérifions si les données sont correctes
-            if user:  # Si l'objet renvoyé n'est pas None
-                login(request, user)  # nous connectons l'utilisateur
-            else: # sinon une erreur sera affichée
+            user = authenticate(
+                username=username,
+                password=password
+            )
+            if user:
+                login(request, user)
+            else:
                 error = True
     else:
         form = ConnexionForm()
 
     return render(request, 'auth/connexion.html', locals())
+
 
 @login_required(login_url="/connexion")
 def deconnexion(request):
@@ -39,6 +44,7 @@ def deconnexion(request):
     logout(request)
     response = "Vous vous êtes bien déconnecté"
     return render(request, "auth/validation_page.html", locals())
+
 
 def registration(request):
     """
@@ -51,16 +57,16 @@ def registration(request):
             email = form.cleaned_data['email']
             password = form.cleaned_data['password']
             confirm_password = form.cleaned_data['confirm_password']
-            
+
             if User.objects.filter(username=username):
                 return render(
-                    request, 
-                    'auth/registration_confirmation.html', 
+                    request,
+                    'auth/registration_confirmation.html',
                     {'response': "Cet utilisateur existe déjà"}
                 )
 
             else:
-                if password==confirm_password:
+                if password == confirm_password:
                     user = User.objects.create_user(
                         username=username,
                         email=email,
@@ -68,8 +74,8 @@ def registration(request):
                     )
                     response = "Vous vous êtes bien enregistré"
                     return render(
-                        request, 
-                        'auth/registration_confirmation.html', 
+                        request,
+                        'auth/registration_confirmation.html',
                         {'response': "Votre utilisateur a bien été enregistré"}
                     )
 

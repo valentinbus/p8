@@ -1,9 +1,17 @@
-from django.http import HttpResponseRedirect, HttpResponse, JsonResponse
+from django.http import (
+    HttpResponseRedirect,
+    HttpResponse,
+    JsonResponse
+)
 from django.core.paginator import Paginator
 from django.core import serializers
 from .models import Product, Save, User
 from django.shortcuts import render, redirect
-from django.contrib.postgres.search import SearchQuery, SearchRank, SearchVector
+from django.contrib.postgres.search import (
+    SearchQuery,
+    SearchRank,
+    SearchVector
+)
 from django.contrib.auth.decorators import login_required
 from .openfoodfact import OpenFoodFacts
 from .forms import SearchForm
@@ -15,10 +23,12 @@ import logging
 logging.basicConfig(level=logging.DEBUG)
 op = OpenFoodFacts()
 
+
 def list_all_products(request):
     """
     List all products from bdd
     """
+    logging.info(f"REQUEST:::{pformat(request)}")
     products_list = Product.objects.all()
     paginator = Paginator(products_list, 25)
 
@@ -36,6 +46,7 @@ def list_all_products(request):
             'products': products
         }
     )
+
 
 def purpose_replace(request):
     """
@@ -58,27 +69,24 @@ def purpose_replace(request):
     page = request.GET.get('page')
     replace_products = paginator.get_page(page)
 
-    #Return json result if json == 1 in request GET paramter
-    if request.GET.get('json'):
-        seriale_objects = serializers.serialize('json', replace_products_list)
-        return HttpResponse(seriale_objects)
-
     return render(
-        request, 
-        'op/replace_products.html', 
+        request,
+        'op/replace_products.html',
         {
             'id_product': ID,
-            'replace_products': replace_products, 
+            'replace_products': replace_products,
             'product_to_replace': product_to_replace
         }
     )
+
 
 def search_product(request):
     """
     Use for user's search and return a list of products
 
     ToDo
-    Comment utiliser une fonctionnolité d'openfoodfact si je ne peux pas l'importer
+    Comment utiliser une fonctionnolité
+    d'openfoodfact si je ne peux pas l'importer
     """
     q = request.GET.get('q')
 
@@ -87,7 +95,7 @@ def search_product(request):
         all_products = Product.objects.all()
 
         products_list = Product.objects.annotate(
-                search = SearchVector('name')
+                search=SearchVector('name')
         ).filter(search=q)
 
         paginator = Paginator(products_list, 25)
@@ -102,11 +110,6 @@ def search_product(request):
             d['img_path'] = img_path
             d['product'] = product
             result.append(d)
-
-        #Return json result if json == 1 in request GET paramter
-        if request.GET.get('json'):
-            seriale_objects = serializers.serialize('json', products_list)
-            return HttpResponse(seriale_objects)
 
         return render(
             request, 'op/list_products.html',
@@ -125,8 +128,8 @@ def save_replacement(request):
     """
     Feature to save a replacement if user want
     """
-    
-    #Have to get param for 
+
+    #Have to get param for
     ID_PRODUCT_TO_REPLACE = request.GET['id_product_to_replace']
     ID_REPLACE_PRODUCT = request.GET['id_replace_product']
 
@@ -145,6 +148,7 @@ def save_replacement(request):
 
     return redirect('/openfoodfact/saves')
 
+
 @login_required(login_url="/connexion")
 def show_saves(request):
     """
@@ -155,14 +159,14 @@ def show_saves(request):
     user = User.objects.get(
         username=username
     )
-    
+
     saves = Save.objects.filter(
         user_id=user.id
     )
 
     results = list()
 
-    #ne fonctionne que si il y a plusieurs enregistrements (saves)
+    #Only works if many saves
     if saves:
         for save in saves:
             product_to_replace = Product.objects.get(id=save.product_to_replace_id)
@@ -174,22 +178,16 @@ def show_saves(request):
 
             results.append(d)
     else:
-        return render(request, 'op/show_saves.html', {'response': "Vous n'avez pas encore d'enregistrement"})
+        return render(
+            request,
+            'op/show_saves.html',
+            {
+                'response': "Vous n'avez pas encore d'enregistrement"
+            }
+        )
 
     return render(request, 'op/show_saves.html', locals())
 
-# @login_required(login_url="/connexion")
-# def delete_save(request):
-#     """
-#     Delete save
-#     """
-#     id_save = request.GET['id_save']
-
-#     save = Save.objects.filter(
-#         id=id_save
-#     ).delete()
-
-#     return show_saves(request)
 
 @login_required(login_url="/connexion")
 def more_informations(request):
@@ -202,19 +200,8 @@ def more_informations(request):
     product = Product.objects.get(
         id=id_product
     )
-    logging.info(f"URL OP ===> {pformat(product.url_op)}")
 
     if product.url_op is None:
         product.url_op = "https://fr.openfoodfacts.org/"
-        
+
     return render(request, "op/more_informations.html", {'product': product})
-
-def test(request):
-    product = {
-        "name": "PIZZA",
-        "pk": 3,
-        "nutriscore": "a",
-        "url_image_recto": "https://static.openfoodfacts.org/images/products/303/371/006/5066/front_fr.48.400.jpg",
-
-    }
-    return render(request, "op/test.html", {'product': product})
