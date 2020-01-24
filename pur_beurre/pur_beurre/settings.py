@@ -131,9 +131,7 @@ STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 STATICFILES_DIRS = [
-    "pur_beurre/pur_beurre/home/static",
-    "pur_beurre/pur_beurre/static",
-    "pur_beurre/static",
+    os.path.join(BASE_DIR, "pur_beurre", "static")
 ]
 
 # Activate Django-Heroku.
