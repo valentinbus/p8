@@ -13,8 +13,7 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 import os
 import django_heroku
 
-# Activate Django-Heroku.
-django_heroku.settings(locals())
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -29,7 +28,7 @@ SECRET_KEY = '=o&uqxot1my_(iv(k4cn%cze(az0+*5u26n2t!_-v1tt8)v-um'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['herokudjangoapp.herokuapp.com']
+ALLOWED_HOSTS = ['mysterious-island-48225.herokuapp.com']
 
 
 # Application definition
@@ -137,4 +136,5 @@ STATICFILES_DIRS = [
     "pur_beurre/static",
 ]
 
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+# Activate Django-Heroku.
+django_heroku.settings(locals())
