@@ -1,6 +1,6 @@
 from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import render
-from .forms import ConnexionForm, RegistrationForm
+from .forms import ConnexionForm, RegistrationForm, ForgotPasswordForm
 from django.http import HttpResponseRedirect, HttpResponse
 from django.contrib.auth.decorators import login_required
 from .models import Profil
