@@ -130,7 +130,7 @@ def search_product(request):
         for name in products:
             name_json = name.name
             results.append(name_json)
-        data = json.dumps(results)
+        data = json.dumps(results[:10:1])
         mimetype = 'application/json'
         return HttpResponse(data, mimetype)
 
