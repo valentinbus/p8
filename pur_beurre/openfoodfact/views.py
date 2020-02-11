@@ -18,6 +18,7 @@ from .forms import SearchForm
 
 from pprint import pformat
 import logging
+import json
 
 
 logging.basicConfig(level=logging.DEBUG)
@@ -119,6 +120,20 @@ def search_product(request):
                 'products': products
             }
         )
+
+    elif request.is_ajax():
+        print('coucou')
+        q = request.GET.get('term', '').capitalize()
+        products = Product.objects.filter(name__startswith=q)
+        results = []
+        print(q)
+        for name in products:
+            name_json = name.name
+            results.append(name_json)
+        data = json.dumps(results)
+        mimetype = 'application/json'
+        return HttpResponse(data, mimetype)
+
     else:
         return render(request, "op/search_product.html", locals())
 
