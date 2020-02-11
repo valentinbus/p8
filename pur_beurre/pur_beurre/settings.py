@@ -34,6 +34,7 @@ DEBUG = True
 # Application definition
 
 INSTALLED_APPS = [
+    'sslserver', #do not use in prod
     'django.contrib.contenttypes',
     'openfoodfact',
     'connexion',
