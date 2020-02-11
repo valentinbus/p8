@@ -1,7 +1,7 @@
 $(document).ready(function(){ 
     console.log("ok")    
     $("#search_product_home").autocomplete({
-        source: "ajax_calls/search/",
+        source: "/openfoodfact/search_product/ajax_calls/search/",
         minLength: 2,
         open: function(){
             setTimeout(function () {
@@ -9,6 +9,9 @@ $(document).ready(function(){
             }, 0);
         }
     });
+});
+$(document).ready(function(){ 
+    console.log("ok")    
     $("#search_product_home2").autocomplete({
         source: "ajax_calls/search/",
         minLength: 2,
@@ -18,5 +21,4 @@ $(document).ready(function(){
             }, 0);
         }
     });
-
 });
