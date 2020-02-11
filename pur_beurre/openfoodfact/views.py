@@ -120,23 +120,22 @@ def search_product(request):
                 'products': products
             }
         )
-    else:
-        return render(request, "op/search_product.html", locals())
 
-
-def autocompleteModel(request):
-    if request.is_ajax() is False:
-        q = request.GET.get('term').capitalize()
-        search_qs = Product.objects.filter(name__startswith=q)
+    elif request.is_ajax():
+        print('coucou')
+        q = request.GET.get('term', '').capitalize()
+        products = Product.objects.filter(name__startswith=q)
         results = []
         print(q)
-        for r in search_qs:
-            results.append(r.name)
+        for name in products:
+            name_json = name.name
+            results.append(name_json)
         data = json.dumps(results)
+        mimetype = 'application/json'
+        return HttpResponse(data, mimetype)
+
     else:
-        data = 'fail'
-    mimetype = 'application/json'
-    return HttpResponse(data, mimetype)
+        return render(request, "op/search_product.html", locals())
 
 
 @login_required(login_url="/connexion")
