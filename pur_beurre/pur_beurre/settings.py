@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 """
 
 import os
-import django_heroku
+#import django_heroku
 
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -28,7 +28,10 @@ SECRET_KEY = '=o&uqxot1my_(iv(k4cn%cze(az0+*5u26n2t!_-v1tt8)v-um'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['mysterious-island-48225.herokuapp.com']
+ALLOWED_HOSTS = [
+    'mysterious-island-48225.herokuapp.com',
+    '127.0.0.1'
+]
 
 
 # Application definition
@@ -147,7 +150,7 @@ STATICFILES_DIRS = [
 ]
 
 # Activate Django-Heroku.
-django_heroku.settings(locals())
+#django_heroku.settings(locals())
 
 CSRF_COOKIE_SECURE = True
 SESSION_COOKIE_SECURE = True

@@ -5,6 +5,7 @@ from pprint import pformat
 from django.test import TestCase, Client
 from django.contrib.auth.models import User
 from django.urls import reverse
+from django.core import mail
 from django.core.paginator import Paginator
 from openfoodfact.models import Product, Save
 from django.contrib.postgres.search import SearchQuery, SearchRank, SearchVector
@@ -87,6 +88,13 @@ class ViewsTest(TestCase):
     
     def test_search_product2(self):
         response = client.get(reverse('search_product'))
+        self.assertEquals(response.status_code, 200)
+
+    def test_search_product3(self):
+        response = client.get(
+            reverse('search_product'), 
+            HTTP_X_REQUESTED_WITH='XMLHttpRequest'
+        )
         self.assertEquals(response.status_code, 200)
 
     def test_save_replacement(self):
@@ -182,3 +190,21 @@ class ViewsTest(TestCase):
         product1 = Product.objects.create(**product1)
         response = client.get(reverse('more_informations'), {'id': f"{product1.id}"})
         self.assertEquals(response.status_code, 200)
+
+    def test_send_mail(self):
+        # Use Django send_mail function to construct a message
+        # Note that you don't have to use this function at all.
+        # Any other way of sending an email in Django would work just fine. 
+        mail.send_mail(
+                'Subject here',
+                'Here is the message.',
+                'from@example.com',
+                ['to@example.com']
+            )
+
+        # Now you can test delivery and email contents
+        assert len(mail.outbox) == 1, "Inbox is not empty"
+        assert mail.outbox[0].subject == 'Subject here'
+        assert mail.outbox[0].body == 'Here is the message.'
+        assert mail.outbox[0].from_email == 'from@example.com'
+        assert mail.outbox[0].to == ['to@example.com']
