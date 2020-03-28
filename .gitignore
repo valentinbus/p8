@@ -2,6 +2,8 @@ venv/
 *.pyc
 pur_beurre/.vscode/*
 htmlcov/
+pur_beurre/pur_beurre/settings/production.py
+pur_beurre/pur_beurre/settings/__init__.py
 pur_beurre/openfoodfact/migrations/
 .coverage
 pur_beurre/geckodriver.log
