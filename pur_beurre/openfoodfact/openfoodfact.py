@@ -56,6 +56,23 @@ class OpenFoodFacts:
             p = Product.objects.create(**product)
             p.save()
 
+    def update_db(self):
+        """
+        Check if products exists and update
+        """
+        new_products =  [product for product in self.product_informations(CATEGORIES)]
+
+        for new_product in new_products:
+            if Product.objects.filter(name__contains=f"{new_product.get('name')}"):
+                product = Product.objects.filter(name__contains=f"{new_product.get('name')}")
+                product.name = new_product.get('name')
+                product.category = new_product.get('category')
+                product.nutriscore = new_product.get('nutriscore')
+                product.url_op = new_product.get('url_op')
+                product.url_image_recto = new_product.get('url_image_recto')
+                product.url_image_verso = new_product.get('url_image_verso')
+
+
     def create_user(self):
         """
         Create user for simple test
