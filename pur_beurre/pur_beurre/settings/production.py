@@ -6,7 +6,6 @@ from sentry_sdk.integrations.django import DjangoIntegration
 
 
 SECRET_KEY = os.getenv('SECRET_KEY')
-#SECRET_KEY = "=o&uqxot1my_(iv(k4cn%cze(az0+*5u26n2t!_-v1tt8)v-um"
 DEBUG = False
 ALLOWED_HOSTS = ['34.240.239.202']
 
